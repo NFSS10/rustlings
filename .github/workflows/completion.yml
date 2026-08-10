@@ -14,7 +14,7 @@ jobs:
   check:
     name: Check all exercises
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 5
 
     steps:
       - name: Checkout
@@ -30,4 +30,6 @@ jobs:
         run: cargo install rustlings
 
       - name: Verify all exercises
-        run: rustlings check-all
+        env:
+            TERM: xterm-256color
+        run: script -q -e -c "stty cols 120 rows 40; stty size; rustlings check-all" /dev/null
